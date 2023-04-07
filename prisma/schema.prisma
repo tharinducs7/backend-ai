@@ -3,25 +3,31 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = "postgresql://postgres:5DxDJCyraAsZ6gPEls92@containers-us-west-204.railway.app:5958/railway"
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id   Int     @id @default(autoincrement())
+  name String?
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  viewCount Int      @default(0)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+model Leads {
+  id                  Int      @id @default(autoincrement())
+  name                String?
+  email               String   @unique
+  phone               String?
+  image               String?
+  company             String?
+  country_code        String?
+  jobTitle            String?
+  website             String?
+  personalizationLine String?
+  isValidEmail        Boolean?
+  isApproved          Boolean?
+  comment             String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("leads")
 }
