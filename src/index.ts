@@ -8,6 +8,11 @@ const app = express()
 
 app.use(express.json())
 
+app.get('/', async (req, res) => {
+  res.json("Hello World");
+});
+
+
 // endpoint to retrieve leads
 app.get('/api/leads', async (req, res) => {
   const leads = await prisma.leads.findMany();
