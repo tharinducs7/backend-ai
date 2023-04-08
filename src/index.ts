@@ -5,7 +5,7 @@ import express from 'express'
 
 const prisma = new PrismaClient()
 const app = express()
-const PORT = 4000;
+const PORT = 3000;
 
 app.use(express.json());
 app.use(express.raw({ type: "application/vnd.custom-type" }));
