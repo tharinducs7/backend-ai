@@ -5,11 +5,23 @@ import express from 'express'
 
 const prisma = new PrismaClient()
 const app = express()
+const PORT = 3000;
 
-app.use(express.json())
+app.use(express.json());
+app.use(express.raw({ type: "application/vnd.custom-type" }));
+app.use(express.text({ type: "text/html" }));
 
-app.get('/', (req, res) => {
-  res.json("Hello World");
+app.get("/", async (req, res) => {
+  res.send(
+    `
+  <h1>REST API</h1>
+  <h2>Available Routes</h2>
+  <pre>
+    GET, POST /leads
+    GET, PUT, DELETE /leads/:id
+  </pre>
+  `.trim(),
+  );
 });
 
 
@@ -53,7 +65,6 @@ app.get('/users', async (req, res) => {
   res.json(users)
 })
 
-const server = app.listen(3000, () =>
-  console.log(`
-🚀 Server ready at: http://localhost:3000`),
-)
+app.listen(Number(PORT), "0.0.0.0", () => {
+    console.log(`Example app listening at http://localhost:${PORT}`);
+});
